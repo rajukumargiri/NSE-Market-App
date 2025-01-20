@@ -1,4 +1,4 @@
-# Pull official Python base image
+# Use the official Python image from Docker Hub
 FROM python:3.11-slim
 
 # Set environment variables
@@ -12,16 +12,22 @@ RUN apt-get update && apt-get install -y \
     gfortran \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements file
+# Copy the requirements file
 COPY requirements.txt /app/
 
-# Install Python dependencies
+# Install dependencies
 RUN python -m pip install --upgrade pip setuptools wheel \
     && pip install -r requirements.txt \
     && pip install six
 
-# Copy project files
+# Copy the project files into the container
 COPY . /app/
+
+# Expose port 80
+EXPOSE 80
+
+# Command to run the application
+CMD ["python", "app.py"]
