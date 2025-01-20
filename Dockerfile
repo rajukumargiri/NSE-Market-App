@@ -12,6 +12,7 @@ WORKDIR /app
 RUN python3 -m pip install --upgrade pip setuptools wheel
 RUN pip3 install --upgrade pip
 COPY ./requirements.txt /app/
+RUN pip install six
 RUN pip3 install -r requirements.txt
 
 # copy project
