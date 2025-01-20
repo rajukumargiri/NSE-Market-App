@@ -2,8 +2,15 @@
 FROM python:3.11-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1  # Prevents creation of .pyc files
-ENV PYTHONUNBUFFERED 1         # Ensures stdout and stderr are flushed immediately
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libopenblas-dev \
+    gfortran \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
@@ -11,10 +18,10 @@ WORKDIR /app
 # Copy requirements file
 COPY requirements.txt /app/
 
-# Install dependencies
+# Install Python dependencies
 RUN python -m pip install --upgrade pip setuptools wheel \
     && pip install -r requirements.txt \
     && pip install six
 
-# Copy project files into the container
+# Copy project files
 COPY . /app/
