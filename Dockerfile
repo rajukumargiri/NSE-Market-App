@@ -1,19 +1,20 @@
-# pull official base image
-FROM python:3
+# Pull official Python base image
+FROM python:3.11-slim
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1  # Prevents creation of .pyc files
+ENV PYTHONUNBUFFERED 1         # Ensures stdout and stderr are flushed immediately
 
-# set work directory
+# Set working directory
 WORKDIR /app
 
-# install dependencies
-RUN python3 -m pip install --upgrade pip setuptools wheel
-RUN pip3 install --upgrade pip
-COPY ./requirements.txt /app/
-RUN pip install six
-RUN pip3 install -r requirements.txt
+# Copy requirements file
+COPY requirements.txt /app/
 
-# copy project
+# Install dependencies
+RUN python -m pip install --upgrade pip setuptools wheel \
+    && pip install -r requirements.txt \
+    && pip install six
+
+# Copy project files into the container
 COPY . /app/
