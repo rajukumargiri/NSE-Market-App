@@ -1,7 +1,7 @@
 Django==4.1
 django-crispy-forms==1.14.0
 django-livereload-server==0.4
-numpy==1.21.0
+numpy==1.25.0
 pandas 
 yfinance==0.1.63
 setuptools>=65.5.1
