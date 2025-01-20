@@ -4,3 +4,5 @@ django-livereload-server==0.4
 numpy==1.21.0
 pandas 
 yfinance==0.1.63
+setuptools>=65.5.1
+six>=1.16.0
